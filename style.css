@@ -1,1 +1,154 @@
-/* Add styles here */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --accent-color: #007AFF; /* Un azul profesional como en iOS */
+    --background-light: #F7F7F7; /* Un gris muy claro para el fondo */
+    --surface-light: #FFFFFF;
+    --font-color-primary: #1d1d1f;
+    --font-color-secondary: #8a8a8e;
+    --border-color: #dcdcdc;
+    --border-radius: 12px;
+}
+
+/* Keyframes para animaciones sutiles */
+@keyframes subtleFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subtleScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light);
+    color: var(--font-color-primary);
+    margin: 0;
+    padding: 3rem;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: subtleFadeInUp 0.8s ease-out forwards;
+}
+
+#calendar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.month {
+    background: var(--surface-light);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    opacity: 0;
+    animation: subtleFadeInUp 0.7s ease-out forwards;
+    animation-delay: var(--month-delay);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.month:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.month-header {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.75rem; /* Más espacio entre los días */
+}
+
+.day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px; /* Altura fija para círculos perfectos */
+    width: 38px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 400;
+    color: var(--font-color-secondary);
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    animation: subtleScaleIn 0.5s ease-out forwards;
+    animation-delay: var(--day-delay);
+}
+
+.day.empty-day {
+    cursor: default;
+    animation: none;
+    opacity: 1;
+}
+
+.day-name {
+    font-weight: 500;
+    color: var(--font-color-primary);
+    cursor: default;
+    font-size: 0.8rem;
+    animation: none;
+    opacity: 1;
+}
+
+.day:not(.day-name):not(.empty-day):hover {
+    background-color: #f0f0f0;
+    color: var(--font-color-primary);
+}
+
+.day.selected {
+    background-color: var(--accent-color);
+    color: var(--surface-light);
+    font-weight: 500;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    #calendar-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .month {
+        padding: 1rem;
+    }
+}
